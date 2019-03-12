@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>The setlx2python Playground</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-title" content="setlx2python">
+    <link rel="apple-touch-startup-image" href="/static/img/icon.png">
+    <link rel="apple-touch-icon" href="/static/img/icon.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="256x256" href="/static/img/icon.png">
+
+    <meta property="og:title" content="The setlx2python Playground" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{.URL}}" />
+    <meta property="og:image" content="https://{{.Host}}/static/img/icon.png" />
+
+    <script src="/static/lib/codemirror.min.js"></script>
+    <script src="/static/mode/setlx/simple.js"></script>
+    <script src="/static/mode/setlx/setlx.js"></script>
+    <link rel="stylesheet" href="/static/lib/codemirror.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="/static/script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>setlx2python</h1>
+    </header>
+    <main>
+        <left>
+            <code>
+                <textarea id="code-setlx" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" wrap="off">{{.SetlXCode}}</textarea>
+            </code>
+            <output></output>
+        </left>
+        <split></split> 
+        <right>
+            <code>
+                <textarea id="code-python" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" wrap="off">{{.PythonCode}}</textarea>
+                <div id="transpile-error" class="error-box" style="display:none"></div>
+            </code>
+            <output></output>
+        </right>
+    </main>
+</body>
+
+</html>
