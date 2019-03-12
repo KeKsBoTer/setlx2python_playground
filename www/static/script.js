@@ -32,7 +32,6 @@ window.onload = () => {
 function transpileCode() {
     let errorBox = document.getElementById("transpile-error")
     let code = codeEditorSetlx.getValue()
-    console.log("transpiling...")
     fetch('/transpile', {
             method: 'post',
             headers: {
@@ -48,11 +47,16 @@ function transpileCode() {
             return res.json()
         })
         .then(res => {
-            codeEditorPython.setValue(res.code)
-            errorBox.style.display="none"
+            if (res.success === true) {
+                codeEditorPython.setValue(res.code)
+                errorBox.style.display = "none"
+            } else {
+                errorBox.innerText = res.error
+                errorBox.style.display = ""
+            }
         })
         .catch(e => {
             errorBox.innerText = e
-            errorBox.style.display="initial"
+            errorBox.style.display = ""
         })
 }

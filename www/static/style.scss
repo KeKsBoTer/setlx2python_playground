@@ -71,7 +71,10 @@ main {
             text-align: center;
             right: 10%;
             left: 10%;
-            opacity: .8;
+            opacity: .9;
+            justify-content: center;
+            display: flex;
+            align-items: center;
         }
 
         output {
