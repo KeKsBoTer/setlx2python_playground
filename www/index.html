@@ -35,20 +35,22 @@
         <h1>setlx2python</h1>
     </header>
     <main>
-        <left>
-            <code>
-                <textarea id="code-setlx" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" wrap="off">{{.SetlXCode}}</textarea>
-            </code>
-            <output></output>
-        </left>
+        <code class="setlx">
+            <textarea id="code-setlx" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" wrap="off" style="display:none">{{.SetlXCode}}</textarea>
+        </code>
+        <toolbar class="setlx">
+            <button onclick="runSetlXCode()" id="run" class="icon">Run SetlX Code</button>
+        </toolbar>
+        <output id="setlX-output"></output>
         <split></split> 
-        <right>
-            <code>
-                <textarea id="code-python" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" wrap="off">{{.PythonCode}}</textarea>
-                <div id="transpile-error" class="error-box" style="display:none"></div>
-            </code>
-            <output></output>
-        </right>
+        <code class="python">
+            <textarea id="code-python" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" wrap="off" style="display:none">{{.PythonCode}}</textarea>
+            <div id="transpile-error" class="error-box" style="display:none"></div>
+        </code>
+        <toolbar class="python">
+            <button onclick="runPythonCode()" id="run" class="icon">Run Python Code</button>
+        </toolbar>
+        <output id="python-output"></output>
     </main>
 </body>
 

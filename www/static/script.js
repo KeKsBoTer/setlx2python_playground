@@ -60,3 +60,87 @@ function transpileCode() {
             errorBox.style.display = ""
         })
 }
+
+let executingSetlX = false
+
+function runSetlXCode() {
+    if (executingSetlX)
+        return
+    let code = codeEditorSetlx.getValue()
+
+    // check if code is empty
+    if (!code)
+        return
+    let out = document.getElementById("setlX-output")
+    executingSetlX = true
+    out.innerHTML = "<span class='info'>" + "Waiting for remote server..." + "</span>"
+    fetch("/run/setlx", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain; charset=utf-8",
+        },
+        body: code
+    }).then(async (response) => {
+        executingSetlX = false
+        if (response.ok)
+            return response.json()
+        let errorMsg = await response.text()
+        throw errorMsg ? errorMsg : response.statusText
+    }).then(async (json) => {
+        out.innerHTML = ""
+        let log = ""
+        for (var msg of json.events) {
+            log += `<span class="${msg.Kind}">${msg.Text}</span>`
+        }
+        out.innerHTML += log;
+        out.innerHTML += `<span class="info">Program exited.</span>`
+        out.scrollY = out.scrollHeight
+        out.scrollTop = out.scrollHeight
+    }).catch((e) => {
+        executingSetlX = false
+        out.innerHTML = `<span class="stderr">${e}</span>`
+    })
+}
+
+let executingPython = false
+
+function runPythonCode() {
+    if (executingPython)
+        return
+
+    let code = codeEditorPython.getValue()
+
+    // check if code is empty
+    if (!code)
+        return
+    let out = document.getElementById("python-output")
+    executingPython = true
+    out.innerHTML = "<span class='info'>" + "Waiting for remote server..." + "</span>"
+
+    fetch("/run/python", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain; charset=utf-8",
+        },
+        body: code
+    }).then(async (response) => {
+        executingPython = false
+        if (response.ok)
+            return response.json()
+        let errorMsg = await response.text()
+        throw errorMsg ? errorMsg : response.statusText
+    }).then(async (json) => {
+        out.innerHTML = ""
+        let log = ""
+        for (var msg of json.events) {
+            log += `<span class="${msg.Kind}">${msg.Text}</span>`
+        }
+        out.innerHTML += log;
+        out.innerHTML += `<span class="info">Program exited.</span>`
+        out.scrollY = out.scrollHeight
+        out.scrollTop = out.scrollHeight
+    }).catch((e) => {
+        executingPython = false
+        out.innerHTML = `<span class="stderr">${e}</span>`
+    })
+}

@@ -35,11 +35,15 @@ type PageData struct {
 }
 
 func (h *RequestHandler) index(w http.ResponseWriter, r *http.Request) {
+	code := "print(\"Hello setlX\");"
+
 	source := r.URL.Query().Get("source")
 	if len(source) > 0 {
-		log.Println(source)
+		content, err := fetchURL(source)
+		if err == nil {
+			code = *content
+		}
 	}
-	code := "print(\"Hello setlX\");"
 	output, err := transpile([]byte(code))
 	if err != nil {
 		log.Println(err)
@@ -91,4 +95,20 @@ func (h *RequestHandler) runSetlX(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 	}
 	w.Write(body)
+}
+
+func (h *RequestHandler) runPython(w http.ResponseWriter, r *http.Request) {
+	code, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Can not read code", http.StatusInternalServerError)
+		return
+	}
+	output, err := executePython(code)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Can not execute code", http.StatusInternalServerError)
+		return
+	}
+	w.Write(output)
 }
