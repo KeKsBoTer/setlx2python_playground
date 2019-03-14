@@ -152,6 +152,18 @@ button {
   font-family: inherit;
 }
 
+button:not(:disabled):focus {
+  outline-color: white;
+}
+
+button:not(:disabled):active {
+  background-color: #6b9ac0;
+}
+
+button:disabled {
+  opacity: .5;
+}
+
 button.icon:before {
   content: "";
   display: inline-block;
@@ -163,13 +175,5 @@ button.icon:before {
   margin-right: 3px;
   background-repeat: no-repeat;
   vertical-align: middle;
-}
-
-button:focus {
-  outline-color: white;
-}
-
-button:active {
-  background-color: #6b9ac0;
 }
 /*# sourceMappingURL=style.css.map */

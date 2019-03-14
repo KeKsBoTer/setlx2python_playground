@@ -41,7 +41,7 @@ main {
     display: grid;
     grid-template-rows: 75% auto 1fr;
     grid-template-columns: 1fr 20px 1fr;
-    
+
     overflow: auto;
 
     split {
@@ -137,6 +137,19 @@ button {
     font-size: 18px;
     font-family: inherit;
 
+    &:not(:disabled) {
+        &:focus {
+            outline-color: white;
+        }
+
+        &:active {
+            background-color: rgb(107, 154, 192);
+        }
+    }
+    &:disabled {
+        opacity: .5;
+    }
+
     &.icon:before {
         content: "";
         display: inline-block;
@@ -149,11 +162,4 @@ button {
         vertical-align: middle;
     }
 
-    &:focus {
-        outline-color: white;
-    }
-
-    &:active {
-        background-color: rgb(107, 154, 192);
-    }
 }
